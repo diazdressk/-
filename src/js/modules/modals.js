@@ -46,7 +46,7 @@ const modals = () => {//алгоритм открывания модальных
 
   bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
   bindModal('.phone_link', '.popup', '.popup .popup_close');
-  showModalByTime('.popup', 60000);//через 60 сек запускается модальное окно
+  // showModalByTime('.popup', 60000);//через 60 сек запускается модальное окно
 };
 
 export default modals;
