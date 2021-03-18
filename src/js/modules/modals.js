@@ -3,7 +3,8 @@ const modals = () => {//алгоритм открывания модальных
     const trigger = document.querySelectorAll(triggerSelector),
       modal = document.querySelector(modalSelector),
       close = document.querySelector(closeSelector),
-      windows = document.querySelectorAll('[data-modal]');//закрываю все модальные окна,создал датаАтрибут,чтобы пометить только их
+      windows = document.querySelectorAll('[data-modal]'),//закрываю все модальные окна,создал датаАтрибут,чтобы пометить только их
+      scroll = calcScroll();
     
       trigger.forEach(item => {
         item.addEventListener('click', (e) => {
@@ -17,6 +18,7 @@ const modals = () => {//алгоритм открывания модальных
     
           modal.style.display = "block";
           document.body.style.overflow = "hidden";
+          document.body.style.marginRight = `${scroll}px`;
           // document.body.classList.add('modal-open');
         });
       });
@@ -39,6 +41,7 @@ const modals = () => {//алгоритм открывания модальных
 
         modal.style.display = "none";
         document.body.style.overflow = "";
+        document.body.style.marginRight = `0px`;
         // document.body.classList.add('modal-open');
       }
     });
@@ -46,6 +49,7 @@ const modals = () => {//алгоритм открывания модальных
       if (e.code === 'Escape') {
         modal.style.display = "none";
         document.body.style.overflow = "";
+        document.body.style.marginRight = `0px`;
         // document.body.classList.add('modal-open');
       }
     });
@@ -55,6 +59,21 @@ const modals = () => {//алгоритм открывания модальных
       document.querySelector(selector).style.display = 'block';
       document.body.style.overflow = "hidden";
     }, time);
+  }
+
+  function calcScroll() {//чтоб при открывании модального окна страница не дергалась,буду двигать её вправо
+    let div = document.createElement('div');
+
+    div.style.width = '50px';
+    div.style.height = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+
+    document.body.appendChild(div);
+    let scrollWidth = div.offsetWidth - div.clientWidth;//от польной ширины отнимаю ширины страницы без прокрутки
+    div.remove();
+
+    return scrollWidth;
   }
 
   bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
