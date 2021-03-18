@@ -4,7 +4,8 @@ const gulp = require("gulp"); //импортирую пакеты для сбо�
 const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
 
-const dist = "./dist/"; //все будет храниться там
+// const dist = "./dist/"; //все будет храниться там
+const dist = "../../../../../../../MAMP/htdocs/test/";
 
 gulp.task("copy-html", () => {  //для отслеживания html файла
     return gulp.src("./src/index.html") //она находится тут

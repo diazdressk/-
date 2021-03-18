@@ -1,13 +1,10 @@
+import checkNumInputs from './checkNumInputs';
+
 const forms = () => {//получаю данные с сайта,отправляю на сервер
   const form = document.querySelectorAll('form'),
-        inputs = document.querySelectorAll('input'),//получаю данные с инпутов форм
-        phoneInputs = document.querySelectorAll('input[name="user_phone"]');
+        inputs = document.querySelectorAll('input');//получаю данные с инпутов форм
 
-  phoneInputs.forEach(item => {//проверка, исправление вводимых в инпуты данных
-    item.addEventListener('input', () => {
-      item.value = item.value.replace(/\D/, "");//чтобы только цифры можно было
-    });
-  });
+  checkNumInputs('input[name="user_phone"]');
   
   const message = {//создаю сообщения,которые будут выходить во время взаимодействия с сервером
     loading: 'Загрузка...',
