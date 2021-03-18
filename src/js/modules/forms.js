@@ -1,6 +1,6 @@
 import checkNumInputs from './checkNumInputs';
 
-const forms = () => {//получаю данные с сайта,отправляю на сервер
+const forms = (state) => {//получаю данные с сайта,отправляю на сервер
   const form = document.querySelectorAll('form'),
         inputs = document.querySelectorAll('input');//получаю данные с инпутов форм
 
@@ -37,6 +37,11 @@ const forms = () => {//получаю данные с сайта,отправл�
       item.appendChild(statusMessage);//показываю статус сообщения пользователю
 
       const formData = new FormData(item);//собираю все данные и отправляю на сервер в видео формы
+      if (item.getAttribute('data-calc') === "end") {//если форма из калкЕнд
+        for (let key in state) {
+          formData.append(key, state[key]);//данные покупателя из последней формы,после заполнения полей с выбором окон
+        }
+      }
 
       postData('assets/server.php', formData)//отправляю на сервер 
         .then(res => {

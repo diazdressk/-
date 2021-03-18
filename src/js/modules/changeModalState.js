@@ -4,7 +4,7 @@ const changeModalState = (state) => {//заполняю modalState разным�
   const windowForm = document.querySelectorAll('.balcon_icons_img'),
         windowWidth = document.querySelectorAll('#width'),//хотя тут всего лишь один элемент,чтобы не подправлять всю функцию
         windowHeight = document.querySelectorAll('#height'),
-        windowType = document.querySelectorAll('#view-type'),
+        windowType = document.querySelectorAll('#view_type'),
         windowProfile = document.querySelectorAll('.checkbox');
 
   checkNumInputs('#width');
@@ -13,12 +13,32 @@ const changeModalState = (state) => {//заполняю modalState разным�
   function bindActionElems (event, elem, prop) {
     elem.forEach((item, i) => {
       item.addEventListener(event, () => {
-        if (elem.length > 1) {
-          state[prop] = i;//форма окна из первого модальногоОкна
-        } else {
-          state[prop] = item.value;
+        switch(item.nodeName) {
+          case 'SPAN' :
+            state[prop] = i;
+            // console.log('span');
+            break;
+          case 'INPUT' :
+            if (item.getAttribute('type') === 'checkbox') {
+              // console.log('checkbox');
+              i === 0 ? state[prop] = "Холодное" : state[prop] = "Теплое";
+              elem.forEach((box, j) => {//если выбираю одно,с другой галочка уберется
+                box.checked = false;
+                if (i == j) {
+                  box.checked = true;
+                }
+              });
+            } else {
+              state[prop] = item.value;
+              // console.log('input');
+            }
+            break;
+          case 'SELECT' :
+            state[prop] = item.value;
+            // console.log('select');
+            break;
         }
-        // console.log(state);
+        console.log(state);//{ form: 0, width: "43", height: "65", type: "plastic", profile: "Теплое" }
       });
     });
   }
